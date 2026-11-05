@@ -3,7 +3,7 @@
  * File: fnc_restoreRadiosOnRespawn.sqf
  * Author: Darojax, KrippeJaevel, Mildly_Interested
  * Date: 2023-08-24
- * Last Update: 2023-09-23
+ * Last Update: 2026-11-04
  * License: License: GNU General Public License v3.0 only - https://www.gnu.org/licenses/gpl-3.0-standalone.html
  *
  * Adds respawn event handler to restore radios on respawn.
@@ -103,6 +103,8 @@ player addEventHandler ["Respawn", {
                     {_x deleteAt _index} forEach [_baseRadiosCopy, _channelsCopy, _volumesCopy, _spatialsCopy];
                 };
             } forEach _radios;
+            // These radios now carry the settings from the corpse, automatic apply must not overwrite them
+            GVAR(handledRadios) append _radios;
         },
         [_baseRadios, _channels, _volumes, _spatials, _unit],
         GVAR(restoreRadiosOnRespawnDelay)
