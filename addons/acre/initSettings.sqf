@@ -4,7 +4,7 @@
  * File: initSettings.sqf
  * Author: Mildly_Interested, 3Mydlo3
  * Date: 2023-08-01
- * Last Update: 2023-09-30
+ * Last Update: 2026-11-04
  * License: GNU General Public License v3.0 only - https://www.gnu.org/licenses/gpl-3.0-standalone.html
  *
  * Sets up CBA settings for the ACRE submodule.
@@ -97,4 +97,54 @@ private _category = "ACRE Persistence";
         ["Whisper", "Quiet", "Normal", "Loud", "Shout"],
         2
     ]
+] call CBA_fnc_addSetting;
+
+//Server profile name (client)
+[
+    QGVAR(serverKeyOverride),
+    "EDITBOX",
+    [
+        "Server profile name",
+        "Radio settings are saved separately per server. Arma 3 scripts cannot read the IP address or domain you connected to, so by default the server's name is used. Enter the IP or domain here to use that instead (it is the name your saved settings are filed under). Leave empty for the default."
+    ],
+    [_category, "Server profiles"],
+    [""]
+] call CBA_fnc_addSetting;
+//Server ID (set by the server)
+[
+    QGVAR(serverId),
+    "EDITBOX",
+    [
+        "Server ID (server setting)",
+        "For server owners: set this to your domain or IP (in the CBA server settings or in the server's cba_settings.sqf) so every player files their settings under the same name, even if the server is renamed. A 'Server profile name' entered by the player takes priority."
+    ],
+    [_category, "Server profiles"],
+    [""],
+    1
+] call CBA_fnc_addSetting;
+//Auto-apply mode
+[
+    QGVAR(autoApplyMode),
+    "LIST",
+    [
+        "Automatically apply saved settings",
+        "Apply the settings saved for this server to radios you newly get. Radios you already have keep their settings, so changes you made by hand are not overwritten. 'After ACE Arsenal' covers radios from an arsenal loadout. 'Whenever new radios are acquired' also covers spawning, respawning and picking up radios."
+    ],
+    [_category, "Auto-apply"],
+    [
+        [0, 1, 2],
+        ["Off", "After ACE Arsenal", "Whenever new radios are acquired"],
+        0
+    ]
+] call CBA_fnc_addSetting;
+//Auto-apply hint
+[
+    QGVAR(autoApplyHint),
+    "CHECKBOX",
+    [
+        "Show hint when applied",
+        "Show a hint when saved settings were applied automatically."
+    ],
+    [_category, "Auto-apply"],
+    true
 ] call CBA_fnc_addSetting;
